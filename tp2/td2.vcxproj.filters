@@ -29,13 +29,13 @@
     <ClInclude Include="structures.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\bibliotheque_cours.hpp">
+    <ClInclude Include="debogage_memoire.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\debogage_memoire.hpp">
+    <ClInclude Include="bibliotheque_cours.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\verification_allocation.hpp">
+    <ClInclude Include="verification_allocation.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

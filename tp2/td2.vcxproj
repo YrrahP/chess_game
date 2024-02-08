@@ -9,7 +9,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7001A71-959C-438D-952B-3D359136CB8A}</ProjectGuid>
     <RootNamespace>Projet1</RootNamespace>
-    <ProjectName>tp2</ProjectName>
+    <ProjectName>td2</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -49,10 +49,10 @@
     <ClCompile Include="td2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\bibliotheque_cours.hpp" />
-    <ClInclude Include="include\debogage_memoire.hpp" />
-    <ClInclude Include="include\verification_allocation.hpp" />
+    <ClInclude Include="bibliotheque_cours.hpp" />
+    <ClInclude Include="debogage_memoire.hpp" />
     <ClInclude Include="structures.hpp" />
+    <ClInclude Include="verification_allocation.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
