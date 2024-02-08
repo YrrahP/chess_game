@@ -73,12 +73,30 @@ void ajouterFilm(ListeFilms& liste, Film* film) {
 
 //TODO: Une fonction pour enlever un Film d'une ListeFilms (enlever le pointeur) sans effacer le film; la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
 void enleverFilm(ListeFilms& liste, Film* film) {
-
+	for (auto i : range(0, liste.nElements--)) {
+		if (liste.elements[i] == film) {
+			liste.elements[i] = liste.elements[liste.nElements - 1];
+			liste.nElements--;
+			break;
+		}
+	}
 }
 
 
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
+Acteur* trouverActeur(ListeFilms& liste, const string& nom) {
+	for (auto& film : span(liste.elements, liste.nElements)) {
+		for (auto& acteur : span(film->acteurs.elements, film->acteurs.nElements)) {
+			if (acteur->nom == nom) {
+				return acteur;
+			}
+		}
+	}
+	return nullptr;
+}
+
+
 
 //TODO: Compléter les fonctions pour lire le fichier et créer/allouer une ListeFilms.  La ListeFilms devra être passée entre les fonctions, pour vérifier l'existence d'un Acteur avant de l'allouer à nouveau (cherché par nom en utilisant la fonction ci-dessus).
 Acteur* lireActeur(istream& fichier)
