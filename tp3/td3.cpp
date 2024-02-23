@@ -154,9 +154,8 @@ Film* lireFilm(istream& fichier, ListeFilms& listeFilms) {
 	filmp->acteurs.elements = make_unique<shared_ptr<Acteur>[]>(filmp->acteurs.nElements);
 
 	for (int i = 0; i < filmp->acteurs.nElements; i++) {
-		// On suppose l'existence d'une fonction lireActeur adaptée.
-		shared_ptr<Acteur> acteur = lireActeur(fichier, listeFilms);
-		filmp->acteurs.elements[i] = acteur;
+		Acteur* acteurBrut = lireActeur(fichier, listeFilms);
+		filmp->acteurs.elements[i] = std::shared_ptr<Acteur>(acteurBrut);
 	}
 
 	return filmp;

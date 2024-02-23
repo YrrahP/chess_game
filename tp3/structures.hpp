@@ -32,7 +32,11 @@ struct ListeActeurs {
     int capacite = 0, nElements = 0;
     unique_ptr<shared_ptr<Acteur>[]> elements;
 
-    ListeActeurs(int capacite_) : capacite(capacite_), nElements(0), elements(make_unique<Acteur* []>(capacite_)) {}
+    // Constructeur par défaut
+    ListeActeurs() : capacite(0), nElements(0), elements(nullptr) {}
+
+    // Constructeur avec un argument pour la capacité
+    ListeActeurs(int capacite_) : capacite(capacite_), nElements(0), elements(make_unique<shared_ptr<Acteur>[]>(capacite_)) {}
 };
 
 struct Film {
