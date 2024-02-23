@@ -30,7 +30,7 @@ private:
 
 struct ListeActeurs {
     int capacite = 0, nElements = 0;
-    unique_ptr<Acteur* []> elements;
+    unique_ptr<shared_ptr<Acteur>[]> elements;
 
     ListeActeurs(int capacite_) : capacite(capacite_), nElements(0), elements(make_unique<Acteur* []>(capacite_)) {}
 };
@@ -47,6 +47,6 @@ struct Acteur {
     string nom = "";
     int anneeNaissance = 0;
     char sexe = 'U';
-    ListeFilms joueDans;
+//    ListeFilms joueDans;
 };
 
