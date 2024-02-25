@@ -87,30 +87,24 @@ void ListeFilms::ajouterFilm(Film* film)
 //TODO: Une fonction pour enlever un Film d'une ListeFilms (enlever le pointeur) sans effacer le film; la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
 //[
 // On a juste fait une version const qui retourne un span non const.  C'est valide puisque c'est la struct qui est const et non ce qu'elle pointe.  Ça ne va peut-être pas bien dans l'idée qu'on ne devrait pas pouvoir modifier une liste const, mais il y aurais alors plusieurs fonctions à écrire en version const et non-const pour que ça fonctionne bien, et ce n'est pas le but du TD (il n'a pas encore vraiment de manière propre en C++ de définir les deux d'un coup).
-span<Film*> ListeFilms::enSpan() const { return span(elements, nElements); }
+//span<Film*> ListeFilms::enSpan() const { return span(elements, nElements); }
 
-void ListeFilms::enleverFilm(const Film* film)
-{
-	for (Film*& element : enSpan()) {  // Doit être une référence au pointeur pour pouvoir le modifier.
-		if (element == film) {
-			if (nElements > 1)
-				element = elements[nElements - 1];
+void ListeFilms::enleverFilm(const Film* film) {
+	for (int i = 0; i < nElements; ++i) {
+		if (elements[i] == film) {
+			delete elements[i];
+			elements[i] = elements[nElements - 1];
 			nElements--;
-			return;
+			break;
 		}
 	}
 }
+
 //]
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
 //[
 // Voir la NOTE ci-dessous pourquoi Acteur* n'est pas const.  Noter que c'est valide puisque c'est la struct uniquement qui est const dans le paramètre, et non ce qui est pointé par la struct.
-template<typename T, typename Func>
-void itererSurCollection(const std::unique_ptr<std::shared_ptr<T>[]>& elements, int nElements, Func op) {
-	for (int i = 0; i < nElements; ++i) {
-		op(elements[i]);
-	}
-}
 
 //NOTE: Doit retourner un Acteur modifiable, sinon on ne peut pas l'utiliser pour modifier l'acteur tel que demandé dans le main, et on ne veut pas faire écrire deux versions.
 Acteur* ListeFilms::trouverActeur(const std::string& nomActeur) const {
@@ -223,11 +217,12 @@ void detruireFilm(Film* film) {
 //TODO: Une fonction pour détruire une ListeFilms et tous les films qu'elle contient.
 //[
 //NOTE: Attention que c'est difficile que ça fonctionne correctement avec le destructeur qui détruit la liste.  Mon ancienne implémentation utilisait une méthode au lieu d'un destructeur.  Le problème est que la matière pour le constructeur de copie/move n'est pas dans le TD2 mais le TD3, donc si on copie une liste (par exemple si on la retourne de la fonction creerListe) elle sera incorrectement copiée/détruite.  Ici, creerListe a été converti en constructeur, qui évite ce problème.
-ListeFilms::~ListeFilms()
-{
-	if (possedeLesFilms_)
-		for (Film* film : enSpan())
-			detruireFilm(film);
+ListeFilms::~ListeFilms() {
+	if (possedeLesFilms_) {
+		for (int i = 0; i < nElements; ++i) {
+			delete elements[i];
+		}
+	}
 	delete[] elements;
 }
 //]
@@ -246,8 +241,8 @@ void afficherFilm(const Film& film)
 	cout << "  Recette: " << film.recette << "M$" << endl;
 
 	cout << "Acteurs:" << endl;
-	for (const Acteur* acteur : spanListeActeurs(film.acteurs))
-		afficherActeur(*acteur);
+	/*for (const Acteur* acteur : spanListeActeurs(film.acteurs))
+		afficherActeur(*acteur);*/
 }
 //]
 

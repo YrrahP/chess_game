@@ -14,7 +14,8 @@ class ListeFilms {
 public:
     ListeFilms() = default;
     ListeFilms(const string& nomFichier);
-    ListeFilms(const ListeFilms& l) { assert(l.elements == nullptr); }
+    ListeFilms(const ListeFilms& l) = delete; // Suppression explicite
+    ListeFilms& operator=(const ListeFilms&) = delete; // Suppression explicite de l'opérateur d'assignation de copie
     ~ListeFilms();
     void ajouterFilm(Film* film);
     void enleverFilm(const Film* film);
@@ -29,6 +30,7 @@ private:
     Film** elements = nullptr;
     bool possedeLesFilms_ = false;
 };
+
 
 struct ListeActeurs {
     int capacite = 0, nElements = 0;
@@ -47,6 +49,10 @@ struct Film {
     int anneeSortie = 0;
     int recette = 0;
     ListeActeurs acteurs;
+
+    Film() = default;
+    Film(const Film&) = delete;
+    Film& operator=(const Film&) = delete;
 };
 
 struct Acteur {
