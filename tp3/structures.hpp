@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 #include <functional>
+#include <cassert>
 #include "gsl/span"
 using namespace std;
 using gsl::span;
