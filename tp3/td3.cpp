@@ -259,28 +259,19 @@ void afficherFilm(const Film& film)
 }
 //]
 
-void afficherListeFilms(const ListeFilms& listeFilms)
-{
-	//TODO: Utiliser des caractères Unicode pour définir la ligne de séparation (différente des autres lignes de séparations dans ce progamme).
-	static const string ligneDeSeparation = //[
-		"\033[32m────────────────────────────────────────\033[0m\n";
-		/*
-		//]
-		{};
-	//[ */
-	//]
+Film* ListeFilms::getFilmAt(int index) const {
+	if (index >= 0 && index < nElements) {
+		return elements[index];
+	}
+	return nullptr;
+}
+
+void ListeFilms::afficherListeFilms() const {
+	static const string ligneDeSeparation = "\033[32m────────────────────────────────────────\033[0m\n";
 	cout << ligneDeSeparation;
-	//TODO: Changer le for pour utiliser un span.
-	//[
-	/*//]
-	for (int i = 0; i < listeFilms.nElements; i++) {
-		//[*/
-	for (const Film* film : listeFilms.enSpan()) {
-		//]
-		//TODO: Afficher le film.
-		//[
-		afficherFilm(*film);
-		//]
+	for (int i = 0; i < this->nElements; i++) {
+		const Film* film = this->elements[i];
+		afficherFilm(*film); // Assurez-vous que afficherFilm est accessible
 		cout << ligneDeSeparation;
 	}
 }
@@ -316,14 +307,20 @@ int main()
 	cout << ligneDeSeparation << "Le premier film de la liste est:" << endl;
 	//TODO: Afficher le premier film de la liste.  Devrait être Alien.
 	//[
-	afficherFilm(*listeFilms.enSpan()[0]);
+	if (listeFilms.size() > 0) { // Vérifiez qu'il y a au moins un film dans la liste.
+		const Film* premierFilm = listeFilms.getFilmAt(0); // Obtenez le premier film.
+		if (premierFilm != nullptr) { // Vérifiez que le pointeur n'est pas nul.
+			afficherFilm(*premierFilm); // Utilisez afficherFilm pour afficher le premier film.
+		}
+	}
 	//]
 
 	cout << ligneDeSeparation << "Les films sont:" << endl;
 	//TODO: Afficher la liste des films.  Il devrait y en avoir 7.
 	//TODO: Afficher la liste des films.  Il devrait y en avoir 7.
 	//[
-	afficherListeFilms(listeFilms);
+	listeFilms.afficherListeFilms();
+
 	//]
 
 	//TODO: Modifier l'année de naissance de Benedict Cumberbatch pour être 1976 (elle était 0 dans les données lues du fichier).  Vous ne pouvez pas supposer l'ordre des films et des acteurs dans les listes, il faut y aller par son nom.
@@ -339,14 +336,20 @@ int main()
 	
 	//TODO: Détruire et enlever le premier film de la liste (Alien).  Ceci devrait "automatiquement" (par ce que font vos fonctions) détruire les acteurs Tom Skerritt et John Hurt, mais pas Sigourney Weaver puisqu'elle joue aussi dans Avatar.
 	//[
-	detruireFilm(listeFilms.enSpan()[0]);
-	listeFilms.enleverFilm(listeFilms.enSpan()[0]);
+	if (listeFilms.size() > 0) { // Vérifiez qu'il y a au moins un film dans la liste.
+		Film* premierFilm = listeFilms.getFilmAt(0); // Obtenez le premier film.
+		// Puisque enleverFilm va déjà supprimer le film, aucun besoin d'appeler detruireFilm ici.
+		listeFilms.enleverFilm(premierFilm); // Enlevez le premier film de la liste.
+	}
+
 	//]
 
 	cout << ligneDeSeparation << "Les films sont maintenant:" << endl;
 	//TODO: Afficher la liste des films.
 	//[
-	afficherListeFilms(listeFilms);
+	listeFilms.afficherListeFilms();
+
+
 	//]
 
 	//TODO: Faire les appels qui manquent pour avoir 0% de lignes non exécutées dans le programme (aucune ligne rouge dans la couverture de code; c'est normal que les lignes de "new" et "delete" soient jaunes).  Vous avez aussi le droit d'effacer les lignes du programmes qui ne sont pas exécutée, si finalement vous pensez qu'elle ne sont pas utiles.

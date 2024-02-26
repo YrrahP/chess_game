@@ -21,6 +21,8 @@ public:
     void enleverFilm(const Film* film);
     Acteur* trouverActeur(const string& nomActeur) const;
     //span<Film*> enSpan() const;
+    void afficherListeFilms() const;
+    Film* getFilmAt(int index) const;
     int size() const { return nElements; }
 
 private:
