@@ -20,7 +20,7 @@ public:
     void ajouterFilm(Film* film);
     void enleverFilm(const Film* film);
     Acteur* trouverActeur(const string& nomActeur) const;
-    span<Film*> enSpan() const;
+    //span<Film*> enSpan() const;
     int size() const { return nElements; }
 
 private:

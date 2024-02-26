@@ -143,24 +143,37 @@ Acteur* lireActeur(istream& fichier//[
 }
 
 Film* lireFilm(istream& fichier, ListeFilms& listeFilms) {
-	Film film = {};
-	film.titre = lireString(fichier);
-	film.realisateur = lireString(fichier);
-	film.anneeSortie = int(lireUintTailleVariable(fichier));
-	film.recette = int(lireUintTailleVariable(fichier));
-	film.acteurs.nElements = int(lireUintTailleVariable(fichier));
+	// Créez directement un Film* (un pointeur vers Film) avec 'new'.
+	// Cela alloue un Film dans le tas sans tenter de le copier.
+	Film* filmp = new Film();
 
-	Film* filmp = new Film(film);
-	cout << "Création Film " << film.titre << endl;
+	// Initialisez directement les membres de 'filmp'.
+	filmp->titre = lireString(fichier);
+	filmp->realisateur = lireString(fichier);
+	filmp->anneeSortie = int(lireUintTailleVariable(fichier));
+	filmp->recette = int(lireUintTailleVariable(fichier));
+	filmp->acteurs.nElements = int(lireUintTailleVariable(fichier));
+
+	cout << "Création Film " << filmp->titre << endl;
+
+	// Allocation dynamique pour les acteurs du film.
 	filmp->acteurs.elements = make_unique<shared_ptr<Acteur>[]>(filmp->acteurs.nElements);
 
+	// Itération pour remplir les acteurs du film.
 	for (int i = 0; i < filmp->acteurs.nElements; i++) {
+		// Ici, vous utilisez 'lireActeur' pour obtenir un pointeur vers Acteur,
+		// et vous l'enveloppez dans un shared_ptr<Acteur>.
 		Acteur* acteurBrut = lireActeur(fichier, listeFilms);
-		filmp->acteurs.elements[i] = std::shared_ptr<Acteur>(acteurBrut);
+		// Assurez-vous que 'lireActeur' retourne un pointeur valide avant de l'utiliser.
+		if (acteurBrut != nullptr) {
+			filmp->acteurs.elements[i] = std::shared_ptr<Acteur>(acteurBrut);
+		}
 	}
 
+	// Retournez le pointeur vers le Film nouvellement alloué et initialisé.
 	return filmp;
 }
+
 
 ListeFilms::ListeFilms(const string& nomFichier) : possedeLesFilms_(true)
 {
