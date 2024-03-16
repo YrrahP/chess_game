@@ -177,40 +177,28 @@ Film* lireFilm(istream& fichier//[
 	return {}; //TODO: Retourner le pointeur vers le nouveau film.
 }
 
-ListeFilms::ListeFilms(const string& nomFichier) : possedeLesFilms_(true)
-{
+ListeFilms::ListeFilms(const string& nomFichier) : possedeLesFilms_(true) {
 	ifstream fichier(nomFichier, ios::binary);
-	fichier.exceptions(ios::failbit);
-	
-	int nElements = int(lireUintTailleVariable(fichier));
-
-	//TODO: Créer une liste de films vide.
-	//[
-	/*
-	//]
-	for (int i = 0; i < nElements; i++) {
-		//[
-	*/
-	for ([[maybe_unused]] int i : range(nElements)) { //NOTE: On ne peut pas faire un span simple avec spanListeFilms car la liste est vide et on ajoute des éléments à mesure.
-		ajouterFilm(
-		//]
-		lireFilm(fichier//[
-		, *this  //NOTE: L'utilisation explicite de this n'est pas dans la matière indiquée pour le TD2.
-		//]
-		)//[
-		)
-		//]
-		; //TODO: Ajouter le film à la liste.
+	if (!fichier) {
+		throw std::runtime_error("Impossible d'ouvrir le fichier " + nomFichier);
 	}
-	
-	//[
-	/*
-	//]
-	return {}; //TODO: Retourner la liste de films.
-	//[
-	*/
-	//]
+
+	try {
+		fichier.exceptions(ios::failbit | ios::eofbit); // Ajoutez aussi eofbit pour la fin de fichier
+
+		int nElements = int(lireUintTailleVariable(fichier));
+
+		for (int i = 0; i < nElements; ++i) {
+			ajouterFilm(lireFilm(fichier, *this));
+		}
+	}
+	catch (const std::ios_base::failure& e) {
+		cerr << "Erreur IO : " << e.what() << '\n';
+		// Vous pouvez décider de gérer l'erreur ou de relancer l'exception
+		throw;
+	}
 }
+
 
 //TODO: Une fonction pour détruire un film (relâcher toute la mémoire associée à ce film, et les acteurs qui ne jouent plus dans aucun films de la collection).  Noter qu'il faut enleve le film détruit des films dans lesquels jouent les acteurs.  Pour fins de débogage, affichez les noms des acteurs lors de leur destruction.
 //[

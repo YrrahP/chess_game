@@ -46,12 +46,12 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
-    <ClCompile Include="td2.cpp" />
+    <ClCompile Include="td3 (1).cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bibliotheque_cours.hpp" />
     <ClInclude Include="debogage_memoire.hpp" />
-    <ClInclude Include="structures.hpp" />
+    <ClInclude Include="structures (1).hpp" />
     <ClInclude Include="verification_allocation.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
