@@ -281,12 +281,32 @@ Livre::Livre(istream& is) {
 	lireDe(is);
 }
 
-void afficherListeItems(span<unique_ptr<Item>> listeItems)
+
+void Film::afficherCourtSur(ostream& os) const {
+	os << getTitre() << ", par " << realisateur << endl;
+}
+
+void Livre::afficherCourtSur(ostream& os) const {
+	os << getTitre() << ", de " << auteur << endl;
+}
+
+void FilmLivre::afficherCourtSur(ostream& os) const {
+	// Vous pouvez choisir d'afficher les détails du film ou du livre, ou les deux.
+	Film::afficherCourtSur(os);
+	Livre::afficherCourtSur(os);
+}
+
+
+template <typename Container>
+void afficherListeItems(const Container& listeItems)
 {
 	static const string ligneDeSeparation = "\033[32m────────────────────────────────────────\033[0m\n";
 	cout << ligneDeSeparation;
-	for (auto&& item : listeItems) {
-		cout << *item << ligneDeSeparation;
+	for (const auto& item : listeItems) {
+		if (item) {
+			item->afficherCourtSur(cout);
+		}
+		cout << ligneDeSeparation;
 	}
 }
 

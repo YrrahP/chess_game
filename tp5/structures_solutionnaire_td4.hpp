@@ -79,9 +79,12 @@ private:
 
 using ListeActeurs = Liste<Acteur>;
 
+
 class Affichable {
 public:
 	virtual void afficherSur(ostream& os) const = 0;
+	virtual void afficherCourtSur(ostream& os) const = 0;
+
 	virtual ~Affichable() = default;
 };
 
@@ -89,6 +92,8 @@ class Item : public Affichable {
 public:
 	void afficherSur(ostream& os) const override;
 	void lireDe(istream& is);
+
+	const string& getTitre() const { return titre; }
 
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
 
@@ -102,6 +107,7 @@ class Film : virtual public Item
 public:
 	void afficherSur(ostream& os) const override;
 	void afficherSpecifiqueSur(ostream& os) const;  // Affiche la parite de cette classe sans afficher la base virtuelle.
+	void afficherCourtSur(ostream& os) const;
 
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
 	friend shared_ptr<Acteur> ListeFilms::trouverActeur(const string& nomActeur) const;
@@ -121,6 +127,7 @@ public:
 	void afficherSur(ostream& os) const override;
 	void afficherSpecifiqueSur(ostream& os) const;
 	void lireDe(istream& is);
+	void afficherCourtSur(ostream& os) const;
 
 private:
 	string auteur;
@@ -132,6 +139,7 @@ public:
 	FilmLivre(const Film& film, const Livre& livre) : Item(film), Film(film), Livre(livre) { }
 
 	void afficherSur(ostream& os) const override;
+	void afficherCourtSur(ostream& os) const;
 };
 
 struct Acteur
