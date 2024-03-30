@@ -13,6 +13,7 @@
 #include <limits>
 #include <algorithm>
 #include <sstream>
+#include <forward_list>
 #include "cppitertools/range.hpp"
 #include "cppitertools/enumerate.hpp"
 #include "gsl/span"
@@ -364,12 +365,12 @@ int main(int argc, char* argv[])
 	static const string ligneDeSeparation = "\n\033[35m════════════════════════════════════════\033[0m\n";
 
 	// 2.
-	vector<unique_ptr<Item>> items;
+	vector<shared_ptr<Item>> items;
 	{
 		{
 			ListeFilms listeFilms = creerListe("films.bin");
 			for (auto&& film : listeFilms.enSpan())
-				items.push_back(unique_ptr<Item>(film));  // On transert la possession.
+				items.push_back(shared_ptr<Item>(film));  // On transert la possession.
 			listeFilms.detruire();
 		}
 
@@ -377,13 +378,25 @@ int main(int argc, char* argv[])
 			ifstream fichier("livres.txt");
 			fichier.exceptions(ios::failbit);  // Pas demandé mais permet de savoir s'il y a une erreur de lecture.
 			while (!ws(fichier).eof())
-				items.push_back(make_unique<Livre>(fichier));
+				items.push_back(make_shared<Livre>(fichier));
 		}
 	}
 	
 	// 4.
-	items.push_back(make_unique<FilmLivre>(dynamic_cast<Film&>(*items[4]), dynamic_cast<Livre&>(*items[9])));  // On ne demandait pas de faire une recherche; serait direct avec la matière du TD5.
+	items.push_back(make_shared<FilmLivre>(dynamic_cast<Film&>(*items[4]), dynamic_cast<Livre&>(*items[9])));  // On ne demandait pas de faire une recherche; serait direct avec la matière du TD5.
 
 	// 3.
 	afficherListeItems(items);
+
+
+	//tp5
+
+	//1.1
+
+	forward_list<shared_ptr<Item>> fListItem;
+	for (int i = items.size(); i >= 0; i--) {
+		fListItem.push_front(items[i]);
+	}
+
+
 }
