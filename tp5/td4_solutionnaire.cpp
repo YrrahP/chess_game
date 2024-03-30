@@ -430,6 +430,20 @@ int main(int argc, char* argv[])
 		cout << *acteur;
 	}
 
+	//2.1
+
+	for (auto item = vect1.begin(); item != vect1.end(); ++item) {
+		auto minElement = item;
+		for (auto i = item + 1; i != vect1.end(); ++i) {
+			if ((*i)->getTitre() < (*minElement)->getTitre()) {
+				minElement = i;
+			}
+		}
+		if (minElement != item) {
+			iter_swap(item, minElement);
+		}
+	}
+
 
 	//test
 	//afficherListeItems(fListItemOrder);
