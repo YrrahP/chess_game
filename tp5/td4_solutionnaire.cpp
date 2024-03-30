@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <sstream>
 #include <forward_list>
+#include <numeric>
 #include "cppitertools/range.hpp"
 #include "cppitertools/enumerate.hpp"
 #include "gsl/span"
@@ -423,42 +424,52 @@ int main(int argc, char* argv[])
 		vect1.insert(vect1.begin(), item);//O(n)
 	}
 
-	//1.5
+	////1.5
 
-	Film film = dynamic_cast<Film&>(*items[0]);
-	for (auto&& acteur : film.getActeurs()) {
-		cout << *acteur;
-	}
+	//Film film = dynamic_cast<Film&>(*items[0]);
+	//for (auto&& acteur : film.getActeurs()) {
+	//	cout << *acteur;
+	//}
 
-	//2.1
+	////2.1
 
-	for (auto item = vect1.begin(); item != vect1.end(); ++item) {
-		auto minElement = item;
-		for (auto i = item + 1; i != vect1.end(); ++i) {
-			if ((*i)->getTitre() < (*minElement)->getTitre()) {
-				minElement = i;
-			}
-		}
-		if (minElement != item) {
-			iter_swap(item, minElement);
-		}
-	}
+	//for (auto item = vect1.begin(); item != vect1.end(); ++item) {
+	//	auto minElement = item;
+	//	for (auto i = item + 1; i != vect1.end(); ++i) {
+	//		if ((*i)->getTitre() < (*minElement)->getTitre()) {
+	//			minElement = i;
+	//		}
+	//	}
+	//	if (minElement != item) {
+	//		iter_swap(item, minElement);
+	//	}
+	//}
 
-	//2.2
+	////2.2
 
-	unordered_map<string, shared_ptr<Item>> itemsMap;
+	//unordered_map<string, shared_ptr<Item>> itemsMap;
 
-	for (auto item = fListItemOrder.begin(); item != fListItemOrder.end(); ++item)  
-		itemsMap.insert({ (*item)->getTitre(), *item});
-	
-	string searchTitle = "The Hobbit";
-	auto search = itemsMap.find(searchTitle);
-	if (search != itemsMap.end()) {
-		cout << "Item trouvé: " << search->second->getTitre() << endl;
-	}
-	else {
-		cout << "Item non trouvé." << endl;
-	}
+	//for (auto item = fListItemOrder.begin(); item != fListItemOrder.end(); ++item)  
+	//	itemsMap.insert({ (*item)->getTitre(), *item});
+	//
+	//string searchTitle = "The Hobbit";
+	//auto search = itemsMap.find(searchTitle);
+	//if (search != itemsMap.end()) {
+	//	cout << "Item trouvé: " << search->second->getTitre() << endl;
+	//}
+	//else {
+	//	cout << "Item non trouvé." << endl;
+	//}
+
+	//3.1
+
+	//vector<shared_ptr<Item>> films;
+	//copy_if(fListItemOrder.begin(), fListItemOrder.end(), back_inserter(films),
+	//	[](const shared_ptr<Item>& item) { return dynamic_cast<Film*>(item.get()) != nullptr; });
+	vector<shared_ptr<Item>> films;
+	copy_if(fListItemOrder.begin(), fListItemOrder.end(), back_inserter(films),
+		[](shared_ptr<Item> item) {return typeid(*item) == typeid(Film); });
+
 
 
 
@@ -467,7 +478,7 @@ int main(int argc, char* argv[])
 	//afficherListeItems(fListItemReverse);
 	//afficherListeItems(fListItemOrder2);
 	//afficherListeItems(vect1);
-
+	afficherListeItems(films);
 	
 
 
