@@ -117,6 +117,7 @@ public:
 	void afficherSpecifiqueSur(ostream& os) const;  // Affiche la parite de cette classe sans afficher la base virtuelle.
 	void afficherCourtSur(ostream& os) const;
 	ListeActeurs getActeurs() const;
+	int getRecette() const;
 
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
 	friend shared_ptr<Acteur> ListeFilms::trouverActeur(const string& nomActeur) const;

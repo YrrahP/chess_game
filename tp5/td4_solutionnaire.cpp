@@ -316,6 +316,10 @@ ListeActeurs Film::getActeurs() const {
 	return acteurs;
 }
 
+int Film::getRecette() const {
+	return recette;
+}
+
 #pragma region "Exemples de tests unitaires"//{
 #ifdef TEST
 // Pas demandés dans ce TD mais sert d'exemple.
@@ -426,52 +430,52 @@ int main(int argc, char* argv[])
 
 	////1.5
 
-	//Film film = dynamic_cast<Film&>(*items[0]);
-	//for (auto&& acteur : film.getActeurs()) {
-	//	cout << *acteur;
-	//}
+	Film film = dynamic_cast<Film&>(*items[0]);
+	for (auto&& acteur : film.getActeurs()) {
+		cout << *acteur;
+	}
 
 	////2.1
 
-	//for (auto item = vect1.begin(); item != vect1.end(); ++item) {
-	//	auto minElement = item;
-	//	for (auto i = item + 1; i != vect1.end(); ++i) {
-	//		if ((*i)->getTitre() < (*minElement)->getTitre()) {
-	//			minElement = i;
-	//		}
-	//	}
-	//	if (minElement != item) {
-	//		iter_swap(item, minElement);
-	//	}
-	//}
+	for (auto item = vect1.begin(); item != vect1.end(); ++item) {
+		auto minElement = item;
+		for (auto i = item + 1; i != vect1.end(); ++i) {
+			if ((*i)->getTitre() < (*minElement)->getTitre()) {
+				minElement = i;
+			}
+		}
+		if (minElement != item) {
+			iter_swap(item, minElement);
+		}
+	}
 
 	////2.2
 
-	//unordered_map<string, shared_ptr<Item>> itemsMap;
+	unordered_map<string, shared_ptr<Item>> itemsMap;
 
-	//for (auto item = fListItemOrder.begin(); item != fListItemOrder.end(); ++item)  
-	//	itemsMap.insert({ (*item)->getTitre(), *item});
-	//
-	//string searchTitle = "The Hobbit";
-	//auto search = itemsMap.find(searchTitle);
-	//if (search != itemsMap.end()) {
-	//	cout << "Item trouvé: " << search->second->getTitre() << endl;
-	//}
-	//else {
-	//	cout << "Item non trouvé." << endl;
-	//}
+	for (auto item = fListItemOrder.begin(); item != fListItemOrder.end(); ++item)  
+		itemsMap.insert({ (*item)->getTitre(), *item});
+	
+	string searchTitle = "The Hobbit";
+	auto search = itemsMap.find(searchTitle);
+	if (search != itemsMap.end()) {
+		cout << "Item trouvé: " << search->second->getTitre() << endl;
+	}
+	else {
+		cout << "Item non trouvé." << endl;
+	}
 
 	//3.1
 
-	//vector<shared_ptr<Item>> films;
-	//copy_if(fListItemOrder.begin(), fListItemOrder.end(), back_inserter(films),
-	//	[](const shared_ptr<Item>& item) { return dynamic_cast<Film*>(item.get()) != nullptr; });
 	vector<shared_ptr<Item>> films;
 	copy_if(fListItemOrder.begin(), fListItemOrder.end(), back_inserter(films),
 		[](shared_ptr<Item> item) {return typeid(*item) == typeid(Film); });
 
+	//3.2
 
-
+	int sommeRecettes = transform_reduce(vect1.begin(), vect1.end(), 0, plus{},
+		[](shared_ptr<Item> film) { return dynamic_cast<Film&>(*film).getRecette(); });
+	
 
 	//test
 	//afficherListeItems(fListItemOrder);
@@ -479,6 +483,8 @@ int main(int argc, char* argv[])
 	//afficherListeItems(fListItemOrder2);
 	//afficherListeItems(vect1);
 	afficherListeItems(films);
+
+	//cout << "Somme des recettes: " << sommeRecettes << "M$" << endl;;
 	
 
 
