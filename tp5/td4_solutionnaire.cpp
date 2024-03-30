@@ -412,14 +412,24 @@ int main(int argc, char* argv[])
 		iterator = fListItemOrder2.insert_after(iterator, item);
 	}
 
+	//1.4
+
+	vector<shared_ptr<Item>> vect1;
+	for (auto& item : fListItemOrder) {
+		vect1.push_back(item);
+	}
+
+
+
 
 
 	//test
-	afficherListeItems(fListItemOrder);
-	afficherListeItems(fListItemReverse);
-	afficherListeItems(fListItemOrder2);
+	//afficherListeItems(fListItemOrder);
+	//afficherListeItems(fListItemReverse);
+	//afficherListeItems(fListItemOrder2);
+	afficherListeItems(vect1);
 
-	//1.3
+	
 
 
 
