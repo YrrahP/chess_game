@@ -400,15 +400,24 @@ int main(int argc, char* argv[])
 
 	//1.2
 
-	forward_list<shared_ptr<Item>> fListItemDisorder;
-	for (int i = 0; i < items.size(); i++) {
-		fListItemDisorder.push_front(items[i]);
+	forward_list<shared_ptr<Item>> fListItemReverse;
+	for (auto& item : fListItemOrder) {
+		fListItemReverse.push_front(item);
 	}
+
+	//1.3
+	forward_list<shared_ptr<Item>> fListItemOrder2;
+	forward_list<shared_ptr<Item>>::iterator iterator = fListItemOrder2.before_begin();
+	for (auto& item : fListItemOrder) {
+		iterator = fListItemOrder2.insert_after(iterator, item);
+	}
+
 
 
 	//test
 	afficherListeItems(fListItemOrder);
-	afficherListeItems(fListItemDisorder);
+	afficherListeItems(fListItemReverse);
+	afficherListeItems(fListItemOrder2);
 
 	//1.3
 
