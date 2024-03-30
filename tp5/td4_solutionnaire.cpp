@@ -393,10 +393,31 @@ int main(int argc, char* argv[])
 
 	//1.1
 
-	forward_list<shared_ptr<Item>> fListItem;
-	for (int i = items.size(); i >= 0; i--) {
-		fListItem.push_front(items[i]);
+	forward_list<shared_ptr<Item>> fListItemOrder;
+	for (int i = items.size() - 1; i >= 0; i--) {
+		fListItemOrder.push_front(items[i]);
 	}
+
+	//1.2
+
+	forward_list<shared_ptr<Item>> fListItemDisorder;
+	for (int i = 0; i < items.size(); i++) {
+		fListItemDisorder.push_front(items[i]);
+	}
+
+
+	//test
+	afficherListeItems(fListItemOrder);
+	afficherListeItems(fListItemDisorder);
+
+	//1.3
+
+
+
+
+
+
+
 
 
 }
