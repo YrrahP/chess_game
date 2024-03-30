@@ -444,12 +444,29 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	//2.2
+
+	unordered_map<string, shared_ptr<Item>> itemsMap;
+
+	for (auto item = fListItemOrder.begin(); item != fListItemOrder.end(); ++item)  
+		itemsMap.insert({ (*item)->getTitre(), *item});
+	
+	string searchTitle = "The Hobbit";
+	auto search = itemsMap.find(searchTitle);
+	if (search != itemsMap.end()) {
+		cout << "Item trouvé: " << search->second->getTitre() << endl;
+	}
+	else {
+		cout << "Item non trouvé." << endl;
+	}
+
+
 
 	//test
 	//afficherListeItems(fListItemOrder);
 	//afficherListeItems(fListItemReverse);
 	//afficherListeItems(fListItemOrder2);
-	afficherListeItems(vect1);
+	//afficherListeItems(vect1);
 
 	
 
