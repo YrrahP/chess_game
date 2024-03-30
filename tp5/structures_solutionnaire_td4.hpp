@@ -68,6 +68,14 @@ public:
 		elements_[nElements_++] = move(element);
 	}
 
+	shared_ptr<T>* begin() const {
+		return elements_.get();
+	}
+
+	shared_ptr<T>* end() const {
+		return elements_.get() + nElements_;
+	}
+
 	// Noter que ces accesseurs const permettent de modifier les éléments; on pourrait vouloir des versions const qui retournent des const shared_ptr, et des versions non const qui retournent des shared_ptr.  En C++23 on pourrait utiliser "deducing this".
 	shared_ptr<T>& operator[] (int index) const { assert(0 <= index && index < nElements_); return elements_[index]; }
 	span<shared_ptr<T>> enSpan() const { return span(elements_.get(), nElements_); }
@@ -108,6 +116,7 @@ public:
 	void afficherSur(ostream& os) const override;
 	void afficherSpecifiqueSur(ostream& os) const;  // Affiche la parite de cette classe sans afficher la base virtuelle.
 	void afficherCourtSur(ostream& os) const;
+	ListeActeurs getActeurs() const;
 
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
 	friend shared_ptr<Acteur> ListeFilms::trouverActeur(const string& nomActeur) const;

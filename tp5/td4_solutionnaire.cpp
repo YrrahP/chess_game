@@ -311,6 +311,10 @@ void afficherListeItems(const Container& listeItems)
 	}
 }
 
+ListeActeurs Film::getActeurs() const {
+	return acteurs;
+}
+
 #pragma region "Exemples de tests unitaires"//{
 #ifdef TEST
 // Pas demandés dans ce TD mais sert d'exemple.
@@ -407,20 +411,24 @@ int main(int argc, char* argv[])
 
 	//1.3
 	forward_list<shared_ptr<Item>> fListItemOrder2;
-	forward_list<shared_ptr<Item>>::iterator iterator = fListItemOrder2.before_begin();
+    forward_list<shared_ptr<Item>>::iterator iterator = fListItemOrder2.before_begin();
 	for (auto& item : fListItemOrder) {
-		iterator = fListItemOrder2.insert_after(iterator, item);
+	    iterator = fListItemOrder2.insert_after(iterator, item);
 	}
 
 	//1.4
 
 	vector<shared_ptr<Item>> vect1;
 	for (auto& item : fListItemOrder) {
-		vect1.push_back(item);
+		vect1.insert(vect1.begin(), item);//O(n)
 	}
 
+	//1.5
 
-
+	Film film = dynamic_cast<Film&>(*items[0]);
+	for (auto&& acteur : film.getActeurs()) {
+		cout << *acteur;
+	}
 
 
 	//test
