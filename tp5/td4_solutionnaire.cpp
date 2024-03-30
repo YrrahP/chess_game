@@ -473,7 +473,7 @@ int main(int argc, char* argv[])
 
 	//3.2
 
-	int sommeRecettes = transform_reduce(films.begin(), films.end(), 0, plus{},
+	int sommeRecette = transform_reduce(films.begin(), films.end(), 0, plus{},
 		[](shared_ptr<Item> film) { return dynamic_cast<Film&>(*film).getRecette(); });
 	
 
@@ -483,8 +483,8 @@ int main(int argc, char* argv[])
 	//afficherListeItems(fListItemOrder2);
 	//afficherListeItems(vect1);
 	afficherListeItems(films);
+	cout << "Somme des recettes: " << sommeRecette << endl;
 
-	cout << "Somme des recettes: " << sommeRecettes << "M$" << endl;
 	
 
 
