@@ -118,7 +118,13 @@
     <ClCompile Include="TestCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="chess.hpp" />
+    <ClInclude Include="Board.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Knight.hpp" />
+    <ClInclude Include="MainWindow.hpp" />
+    <ClInclude Include="Pieces.hpp" />
+    <ClInclude Include="King.hpp" />
+    <ClInclude Include="Rook.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
