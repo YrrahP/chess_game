@@ -119,6 +119,7 @@
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="TestCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +127,7 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Knight.hpp" />
     <ClInclude Include="MainWindow.hpp" />
-    <ClInclude Include="Pieces.hpp" />
+    <ClInclude Include="Piece.hpp" />
     <ClInclude Include="King.hpp" />
     <ClInclude Include="Rook.hpp" />
   </ItemGroup>
