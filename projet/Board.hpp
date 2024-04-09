@@ -9,40 +9,40 @@
 #include <vector>
 #include <optional>
 
+using namespace std;
+
 class Board {
 private:
-    std::vector<std::vector<std::shared_ptr<Piece>>> grid;
-    static const int size = 8;  // Taille standard d'un échiquier d'échecs
+    vector<vector<shared_ptr<Piece>>> grid;
+    static const int size = 8;
 
 public:
     Board() {
-        // Initialiser la grille de l'échiquier avec des pointeurs nuls
-        grid.resize(size, std::vector<std::shared_ptr<Piece>>(size, nullptr));
+        grid.resize(size, vector<shared_ptr<Piece>>(size, nullptr));
     }
 
-    void placePiece(const std::shared_ptr<Piece>& piece, int x, int y) {
+    void placePiece(const shared_ptr<Piece>& piece, int x, int y) {
         if (x >= 0 && x < size && y >= 0 && y < size) {
             grid[x][y] = piece;
         }
     }
 
-    std::optional<std::shared_ptr<Piece>> getPiece(int x, int y) const {
+    optional<shared_ptr<Piece>> getPiece(int x, int y) const {
         if (x >= 0 && x < size && y >= 0 && y < size) {
             return grid[x][y];
         }
-        return std::nullopt;
+        return nullopt;
     }
 
-    bool movePiece(int fromX, int fromY, int toX, int toY) {
-        auto piece = getPiece(fromX, fromY);
-        if (piece && *piece && (*piece)->isValidMove(toX, toY)) {
-            // Simuler le mouvement et vérifier l'échec, etc. peut être ajouté ici
-            placePiece(*piece, toX, toY);
-            placePiece(nullptr, fromX, fromY);  // Retirer la pièce de l'ancienne position
-            return true;
+        bool movePiece(int fromX, int fromY, int toX, int toY) {
+            auto piece = getPiece(fromX, fromY);
+            if (piece && *piece && (*piece)->isValidMove(toX, toY)) {
+                placePiece(*piece, toX, toY);
+                placePiece(nullptr, fromX, fromY);
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 };
 
 #endif // BOARD_HPP
