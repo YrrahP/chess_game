@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <cmath>  // Pour std::abs
 
-namespace Model {
+namespace model {
 
     King::King(bool isWhite) : Piece(Type::King, isWhite) {
         setFlag(QGraphicsItem::ItemIsMovable);

@@ -5,7 +5,7 @@
 #include <QGraphicsScene>
 #include "Board.hpp"
 
-namespace Interface {
+namespace interface {
 
     class Interface {
     public:

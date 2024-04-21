@@ -4,7 +4,7 @@
 
 #include <QGraphicsItem>
 
-namespace Model {
+namespace model {
 
     class Board : public QGraphicsItem {
     public:

@@ -1,6 +1,6 @@
 #include "RAII.hpp"
 
-namespace Model {
+namespace model {
 
     RAII::RAII(Piece& piece, const QPointF& newPosition)
         : piece(piece), originalPosition(piece.pos()) {

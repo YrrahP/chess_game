@@ -2,7 +2,7 @@
 #include "Board.hpp"
 #include <QPainter>
 
-namespace Model {
+namespace model {
 
     Board::Board() {}
 

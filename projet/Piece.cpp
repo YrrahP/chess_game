@@ -1,7 +1,7 @@
 // Piece.cpp
 #include "Piece.hpp"
 
-namespace Model {
+namespace model {
 
     Piece::Piece(Type type, bool isWhite) : type(type), isWhite(isWhite) {
         setFlag(QGraphicsItem::ItemIsMovable);

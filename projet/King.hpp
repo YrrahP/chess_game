@@ -4,7 +4,7 @@
 
 #include "Piece.hpp"
 
-namespace Model {
+namespace model {
 
     class King : public Piece {
     public:

@@ -123,6 +123,7 @@
     <ClCompile Include="King.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="RAII.cpp" />
     <ClCompile Include="TestCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +132,7 @@
     <ClInclude Include="Knight.hpp" />
     <ClInclude Include="Piece.hpp" />
     <ClInclude Include="King.hpp" />
+    <ClInclude Include="RAII.hpp" />
     <ClInclude Include="Rook.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

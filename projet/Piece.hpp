@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 
-namespace Model {
+namespace model {
 
     class Piece : public QGraphicsItem {
     public:

@@ -4,7 +4,7 @@
 #include <QPointF>
 #include "Piece.hpp"  // Assurez-vous que la classe Piece est bien incluse
 
-namespace Model {
+namespace model {
 
     class RAII {
     public:

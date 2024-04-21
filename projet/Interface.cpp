@@ -2,19 +2,19 @@
 #include "Interface.hpp"
 #include "King.hpp"  // Inclure la définition de King
 
-namespace Interface {
+namespace interface {
 
     Interface::Interface(QGraphicsScene* scene) : scene(scene) {}
 
     void Interface::drawBoard() {
-        Model::Board* board = new Model::Board();
+        model::Board* board = new model::Board();
         scene->addItem(board);
     }
 
     void Interface::setupPieces() {
         // Créer un roi blanc et un roi noir
-        Model::King* whiteKing = new Model::King(true);
-        Model::King* blackKing = new Model::King(false);
+        model::King* whiteKing = new model::King(true);
+        model::King* blackKing = new model::King(false);
 
         // Positionnement des rois
         whiteKing->setPos(400, 0);
