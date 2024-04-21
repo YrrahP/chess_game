@@ -117,16 +117,18 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
+    <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="King.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="TestCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.hpp" />
-    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Interface.hpp" />
     <ClInclude Include="Knight.hpp" />
-    <ClInclude Include="MainWindow.hpp" />
     <ClInclude Include="Piece.hpp" />
     <ClInclude Include="King.hpp" />
     <ClInclude Include="Rook.hpp" />

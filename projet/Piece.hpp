@@ -1,32 +1,30 @@
+// Piece.hpp
 #ifndef PIECE_HPP
 #define PIECE_HPP
 
-#include <utility> // Pour std::pair
+#include <QGraphicsItem>
+#include <QPainter>
+#include <QGraphicsSceneMouseEvent>
 
-using namespace std;
+namespace Model {
 
-enum class Color {
-    White,
-    Black
-};
-
-
-class Piece {
+    class Piece : public QGraphicsItem {
     public:
-        Piece(Color color, int x, int y) : color(color), position(x, y) {};
-        virtual ~Piece() = default;
-        virtual bool isValidMove(int xNew, int yNew) const = 0;
-        pair<int, int> getPosition() const { return position; }
-        Color getColor() const { return color; }
-        void setPosition(int x, int y) { position = { x, y }; }
+        enum class Type { King, Queen, Rook, Bishop, Knight, Pawn };
+        Piece(Type type, bool isWhite);
+
+        QRectF boundingRect() const override;
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
     protected:
-        Color color;
-        pair<int, int> position;
+        void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 
+        Type type;
+        bool isWhite;
+        QPointF dragStartPos;  // Position initiale pour les mouvements
+    };
 
-};
-
-
+}
 
 #endif // PIECE_HPP

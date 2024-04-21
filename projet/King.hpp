@@ -1,21 +1,25 @@
+// King.hpp
 #ifndef KING_HPP
 #define KING_HPP
 
-#include "Piece.hpp" 
+#include "Piece.hpp"
 
+namespace Model {
 
-using namespace std;
+    class King : public Piece {
+    public:
+        King(bool isWhite);
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-class King : public Piece {
-	public:
-		King(Color color, int x, int y) : Piece(color, x, y) {}
+    protected:
+        void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+        bool isMoveLegal(const QPointF& startPos, const QPointF& endPos);
 
-		bool isValidMove(int xNew, int yNew) const override {
-			int dx = abs(xNew - position.first);
-			int dy = abs(yNew - position.second);
-			return (dx <= 1 && dy <= 1) && (dx != 0 || dy != 0);
-		}
+    private:
+        QPointF startPos;
+    };
 
-};
+}
 
-#endif //KING_HPP
+#endif // KING_HPP

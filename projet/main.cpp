@@ -1,7 +1,12 @@
-﻿#include ".hpp"
-#include ".hpp"
+﻿//#include ".hpp"
+//#include ".hpp"
 
 #include <QApplication>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+
+#include "Interface.hpp"
+#include "Board.hpp"
 
 #if __has_include("bibliotheque_cours.hpp")
 #include "bibliotheque_cours.hpp"
@@ -34,6 +39,18 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
 	initialiserBibliothequeCours(argc, argv);
 
+	QGraphicsScene* scene = new QGraphicsScene();
+	QGraphicsView* view = new QGraphicsView(scene);
 
+	Interface::Interface chessInterface(scene);
+	chessInterface.drawBoard();
+	chessInterface.setupPieces();
+
+	scene->setSceneRect(0, 0, 800, 800);  // Taille de la scène
+	view->setFixedSize(820, 820);  // Fenêtre un peu plus grande que la scène
+	view->setWindowTitle("Jeu d'échecs en Qt");
+
+	view->show();
+	return app.exec();
 
 }
