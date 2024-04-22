@@ -2,13 +2,21 @@
 #ifndef KING_HPP
 #define KING_HPP
 
+#include <stdexcept>
 #include "Piece.hpp"
 
 namespace model {
 
+    class Over2King : public std::exception
+    {
+    public:
+        using std::exception::exception;
+    };
+
     class King : public Piece {
     public:
         King(bool isWhite);
+        ~King();
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
     protected:
@@ -18,6 +26,7 @@ namespace model {
 
     private:
         QPointF startPos;
+        static inline int numKing_ = 0;
     };
 
 }

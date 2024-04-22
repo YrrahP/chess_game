@@ -1,6 +1,6 @@
 // Interface.cpp
 #include "Interface.hpp"
-#include "King.hpp"  // Inclure la définition de King
+#include "King.hpp"
 
 namespace interface {
 
@@ -12,11 +12,9 @@ namespace interface {
     }
 
     void Interface::setupPieces() {
-        // Créer un roi blanc et un roi noir
         model::King* whiteKing = new model::King(true);
         model::King* blackKing = new model::King(false);
 
-        // Positionnement des rois
         whiteKing->setPos(400, 0);
         blackKing->setPos(400, 700);
 

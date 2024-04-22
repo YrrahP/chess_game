@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
 	chessInterface.drawBoard();
 	chessInterface.setupPieces();
 
-	scene->setSceneRect(0, 0, 800, 800);  // Taille de la scène
-	view->setFixedSize(820, 820);  // Fenêtre un peu plus grande que la scène
+	scene->setSceneRect(0, 0, 800, 800);
+	view->setFixedSize(820, 820);
 	view->setWindowTitle("Jeu d'échecs en Qt");
 
 	view->show();

@@ -2,7 +2,7 @@
 #define RAII_HPP
 
 #include <QPointF>
-#include "Piece.hpp"  // Assurez-vous que la classe Piece est bien incluse
+#include "Piece.hpp"
 
 namespace model {
 
