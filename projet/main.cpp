@@ -51,6 +51,8 @@ int main(int argc, char *argv[])
 	view->setWindowTitle("Jeu d'échecs en Qt");
 
 	view->show();
-	return app.exec();
+	app.exec();
+	delete scene;
+	delete view;
 
 }
