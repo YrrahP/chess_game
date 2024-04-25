@@ -135,6 +135,9 @@
     <ClInclude Include="RAII.hpp" />
     <ClInclude Include="Rook.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="ressources.qrc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

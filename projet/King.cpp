@@ -1,6 +1,7 @@
 // King.cpp
 #include "King.hpp"
 #include <QPainter>
+#include <QPixmap>
 #include <cmath>
 
 namespace model {
@@ -13,6 +14,13 @@ namespace model {
         }
         else
             throw Over2King("More than 2 Kings :(");
+
+        if (isWhite) {
+            pixmap = QPixmap(":/chesspieces/pictures/king_white.png");
+        }
+        else {
+            pixmap = QPixmap(":/chesspieces/pictures/king_black.png");
+        }
     }
 
     King::~King() 
@@ -21,9 +29,14 @@ namespace model {
     }
 
     void King::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) {
-        Piece::paint(painter, option, widget);
-        painter->setBrush(isWhite ? Qt::yellow : Qt::black);
-        painter->drawEllipse(30, 20, 40, 60);
+        if (!pixmap.isNull()) {
+            painter->drawPixmap(boundingRect().toRect(), pixmap);
+        }
+        else {
+            // fallback if the image fails to load
+            painter->setBrush(isWhite ? Qt::yellow : Qt::black);
+            painter->drawEllipse(30, 20, 40, 60);
+        }
     }
 
     void King::mousePressEvent(QGraphicsSceneMouseEvent* event) {

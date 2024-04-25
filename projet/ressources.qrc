@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/chesspieces">
+        <file>pictures/king_white.png</file>
+        <file>pictures/king_black.png</file>
+        <file>pictures/bishop_black.png</file>
+        <file>pictures/bishop_white.png</file>
+        <file>pictures/knight_black.png</file>
+        <file>pictures/knight_white.png</file>
+        <file>pictures/pawn_black.png</file>
+        <file>pictures/pawn_white.png</file>
+        <file>pictures/queen_black.png</file>
+        <file>pictures/queen_white.png</file>
+        <file>pictures/rook_black.png</file>
+        <file>pictures/rook_white.png</file>
+    </qresource>
+</RCC>

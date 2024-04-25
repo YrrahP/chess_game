@@ -26,6 +26,7 @@ namespace model {
 
     private:
         QPointF startPos;
+        QPixmap pixmap;
         static inline int numKing_ = 0;
     };
 
