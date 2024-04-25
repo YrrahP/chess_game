@@ -19,7 +19,7 @@ namespace model {
                 if ((row + col) % 2 == 0)
                     painter->setBrush(Qt::white);
                 else
-                    painter->setBrush(Qt::black);
+                    painter->setBrush(Qt::darkCyan);
                 painter->drawRect(100 * col, 100 * row, 100, 100);
             }
         }

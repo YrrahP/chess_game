@@ -1,14 +1,14 @@
-#ifndef KNIGHT_HPP
-#define KNIGHT_HPP
+#ifndef BISHOP_HPP
+#define BISHOP_HPP
 
 #include "Piece.hpp"
 
 namespace model {
 
-    class Knight : public Piece {
+    class Bishop : public Piece {
     public:
-        Knight(bool isWhite);
-        ~Knight() override;
+        Bishop(bool isWhite);
+        ~Bishop() override;
 
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
@@ -24,4 +24,4 @@ namespace model {
 
 }
 
-#endif // KNIGHT_HPP
+#endif // BISHOP_HPP

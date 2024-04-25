@@ -1,14 +1,14 @@
-#ifndef KNIGHT_HPP
-#define KNIGHT_HPP
+#ifndef PAWN_HPP
+#define PAWN_HPP
 
 #include "Piece.hpp"
 
 namespace model {
 
-    class Knight : public Piece {
+    class Pawn : public Piece {
     public:
-        Knight(bool isWhite);
-        ~Knight() override;
+        Pawn(bool isWhite);
+        ~Pawn() override;
 
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
@@ -20,8 +20,9 @@ namespace model {
     private:
         QPointF startPos;
         QPixmap pixmap;
+        bool firstMove = true;  // Used to determine if the pawn can move two spaces
     };
 
 }
 
-#endif // KNIGHT_HPP
+#endif // PAWN_HPP

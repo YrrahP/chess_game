@@ -1,19 +1,27 @@
-//#ifndef ROOK_HPP
-//#define ROOK_HPP
-//
-//#include "Piece.hpp"
-//
-//using namespace std;
-//
-//class Rook : public Piece {
-//public:
-//    Rook(Color color, int x, int y) : Piece(color, x, y) {}
-//
-//    bool isValidMove(int xNew, int yNew) const override {
-//        int dx = abs(xNew - position.first);
-//        int dy = abs(yNew - position.second);
-//        return (dx == 0 && dy != 0) || (dx != 0 && dy == 0);
-//    }
-//};
-//
-//#endif // ROOK_HPP
+#ifndef ROOK_HPP
+#define ROOK_HPP
+
+#include "Piece.hpp"
+
+namespace model {
+
+    class Rook : public Piece {
+    public:
+        Rook(bool isWhite);
+        ~Rook() override;
+
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+
+    protected:
+        void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+        bool isMoveLegal(const QPointF& startPos, const QPointF& endPos);
+
+    private:
+        QPointF startPos;
+        QPixmap pixmap;
+    };
+
+}
+
+#endif // ROOK_HPP
