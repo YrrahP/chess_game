@@ -32,4 +32,42 @@ namespace model {
         painter->drawEllipse(boundingRect());
     }
 
+    Piece* Piece::isPositionOccupieds(int x, int y, QGraphicsScene* scene, const QGraphicsItem* excludeItem) {
+        QPointF point(x * 100 + 50, y * 100 + 50); // +50 pour cibler le milieu de la case
+        QList<QGraphicsItem*> items = scene->items(point);
+
+        qDebug() << "Position: (" << x << "," << y << ") - Items count: " << items.count();
+
+        for (QGraphicsItem* item : items) {
+            qDebug() << "Item type:" << typeid(*item).name(); // Afficher le type de chaque objet
+            Piece* piece = dynamic_cast<Piece*>(item);
+            if (piece != nullptr && item != excludeItem) {
+                return piece;
+            }
+        }
+        return nullptr;
+    }
+
+    bool Piece::pathIsClear(const QPointF& startPos, const QPointF& endPos) {
+        int xStart = qRound(startPos.x() / 100);
+        int yStart = qRound(startPos.y() / 100);
+        int xEnd = qRound(endPos.x() / 100);
+        int yEnd = qRound(endPos.y() / 100);
+        int stepX = (xEnd - xStart != 0) ? (xEnd - xStart) / std::abs(xEnd - xStart) : 0;
+        int stepY = (yEnd - yStart != 0) ? (yEnd - yStart) / std::abs(yEnd - yStart) : 0;
+
+        xStart += stepX;  // Commencer à vérifier à partir de la case suivante
+        yStart += stepY;
+
+        while (xStart != xEnd || yStart != yEnd) {
+            if (isPositionOccupieds(xStart, yStart, scene(), nullptr)) {
+                return false;  // Trouvé un obstacle
+            }
+            xStart += stepX;
+            yStart += stepY;
+        }
+
+        return true;
+    }
+
 }

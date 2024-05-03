@@ -41,7 +41,17 @@ namespace model {
     bool Knight::isMoveLegal(const QPointF& startPos, const QPointF& endPos) {
         int dx = std::abs(endPos.x() - startPos.x());
         int dy = std::abs(endPos.y() - startPos.y());
-        return (dx == 200 && dy == 100) || (dx == 100 && dy == 200);  // Mouvements en "L"
+
+        if ((dx == 200 && dy == 100) || (dx == 100 && dy == 200)) {  // Mouvement en L
+            Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this);
+            if (targetPiece && targetPiece->isWhite != this->isWhite) {
+                scene()->removeItem(targetPiece);
+                delete targetPiece;
+                return true;
+            }
+            return targetPiece == nullptr;
+        }
+        return false;
     }
 
 }

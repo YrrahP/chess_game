@@ -29,7 +29,7 @@ namespace model {
 
     void Pawn::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
         QPointF endPos = QPointF(qRound(this->pos().x() / 100) * 100, qRound(this->pos().y() / 100) * 100);
-        if (!isMoveLegal(startPos, endPos) || Board::isPositionOccupied(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this)) {
+        if (!isMoveLegal(startPos, endPos)) {
             setPos(startPos);  // Revert to the original position if the move is not legal
         }
         else {
@@ -41,24 +41,35 @@ namespace model {
 
     bool Pawn::isMoveLegal(const QPointF& startPos, const QPointF& endPos) {
         int dx = std::abs(endPos.x() - startPos.x());
+        int dy = endPos.y() - startPos.y();
         int forward = (isWhite ? -100 : 100);  // White moves up, Black moves down.
-        int startRow = isWhite ? 6 : 1;  // Starting rows for White and Black pawns.
 
-        // Avance d'une ou deux cases
-        if (dx == 0 && (endPos.y() == startPos.y() + forward || (firstMove && endPos.y() == startPos.y() + 2 * forward))) {
-            qreal nextY = startPos.y() + forward;
-            while (nextY != endPos.y()) {
-                if (Board::isPositionOccupied(qRound(startPos.x() / 100), qRound(nextY / 100), scene(), this)) {
-                    return false;
-                }
-                nextY += forward;
+        // Avance d'une case
+        if (dx == 0 && dy == forward) {
+            if (isPositionOccupieds(qRound(startPos.x() / 100), qRound(endPos.y() / 100), scene(), this) == nullptr) {
+                return true;
             }
-            return true;
+        }
+
+        // Avance de deux cases depuis la position initiale
+        if (dx == 0 && std::abs(dy) == 200 && (isWhite ? startPos.y() == 600 : startPos.y() == 100)) {
+            if (isPositionOccupieds(qRound(startPos.x() / 100), qRound(startPos.y() / 100 + forward), scene(), this) == nullptr &&
+                isPositionOccupieds(qRound(startPos.x() / 100), qRound(endPos.y() / 100), scene(), this) == nullptr) {
+                return true;
+            }
         }
 
         // Capture diagonale
-        if (dx == 100 && std::abs(endPos.y() - startPos.y()) == 100) {
-            return Board::isPositionOccupied(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), nullptr);
+        if (dx == 100 && std::abs(dy) == 100) {
+            // Ajouter une vérification pour s'assurer que le mouvement est vers l'avant selon la couleur de la pièce
+            if ((isWhite && dy == -100) || (!isWhite && dy == 100)) {
+                Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this);
+                if (targetPiece != nullptr && targetPiece->isWhite != this->isWhite) {
+                    scene()->removeItem(targetPiece);
+                    delete targetPiece;
+                    return true;
+                }
+            }
         }
 
         return false;

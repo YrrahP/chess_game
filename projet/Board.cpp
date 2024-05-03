@@ -43,7 +43,7 @@ namespace model {
 
         for (QGraphicsItem* item : items) {
             qDebug() << "Item type:" << typeid(*item).name(); // Afficher le type de chaque objet
-            if (item != excludeItem && dynamic_cast<Piece*>(item) ) {
+            if (item != excludeItem && dynamic_cast<Piece*>(item)) {
                 return true;
             }
         }

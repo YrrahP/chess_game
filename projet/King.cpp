@@ -57,9 +57,18 @@ namespace model {
     }
 
     bool King::isMoveLegal(const QPointF& startPos, const QPointF& endPos) {
-        qreal dx = std::abs(endPos.x() - startPos.x());
-        qreal dy = std::abs(endPos.y() - startPos.y());
-        return (dx <= 100 && dy <= 100 && (dx > 0 || dy > 0));
-    }
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
 
+        if (dx <= 100 && dy <= 100) {  // Mouvement d'une case autour
+            Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this);
+            if (targetPiece && targetPiece->isWhite != this->isWhite) {
+                scene()->removeItem(targetPiece);
+                delete targetPiece;
+                return true;
+            }
+            return targetPiece == nullptr;
+        }
+        return false;
+    }
 }

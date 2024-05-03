@@ -39,27 +39,22 @@ namespace model {
     }
 
     bool Rook::isMoveLegal(const QPointF& startPos, const QPointF& endPos) {
-        qreal dx = std::abs(endPos.x() - startPos.x());
-        qreal dy = std::abs(endPos.y() - startPos.y());
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
 
-        if (dx != 0 && dy != 0) {
-            return false;  // Le mouvement doit être horizontal ou vertical.
-        }
-
-        int stepX = (dx == 0) ? 0 : ((endPos.x() > startPos.x()) ? 100 : -100);
-        int stepY = (dy == 0) ? 0 : ((endPos.y() > startPos.y()) ? 100 : -100);
-
-        qreal nextX = startPos.x() + stepX;
-        qreal nextY = startPos.y() + stepY;
-
-        while (nextX != endPos.x() || nextY != endPos.y()) {
-            if (Board::isPositionOccupied(qRound(nextX / 100), qRound(nextY / 100), scene(), this)) {
-                return false;  // Blocage trouvé, mouvement illégal
+        // Mouvement horizontal ou vertical
+        if ((dx == 0 || dy == 0) && pathIsClear(startPos, endPos)) {
+            // Vérifier si la position de destination est occupée par une pièce adverse
+            Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this);
+            if (targetPiece && targetPiece->isWhite != this->isWhite) {
+                // Si une pièce adverse est présente, elle est retirée de l'échiquier
+                scene()->removeItem(targetPiece);
+                delete targetPiece;  // Libérer la mémoire de la pièce capturée
+                return true;
             }
-            nextX += stepX;
-            nextY += stepY;
+            return targetPiece == nullptr;  // Si aucune pièce n'est présente, le mouvement est légal
         }
-        return true;
+        return false;
     }
 
 }

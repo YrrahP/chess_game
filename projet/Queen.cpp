@@ -39,27 +39,21 @@ namespace model {
     }
 
     bool Queen::isMoveLegal(const QPointF& startPos, const QPointF& endPos) {
-        qreal dx = std::abs(endPos.x() - startPos.x());
-        qreal dy = std::abs(endPos.y() - startPos.y());
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
 
-        if (!(dx == 0 || dy == 0 || dx == dy)) {  // La reine se déplace en ligne droite ou diagonalement
-            return false;
-        }
-
-        int stepX = (endPos.x() > startPos.x()) ? 100 : (endPos.x() < startPos.x()) ? -100 : 0;
-        int stepY = (endPos.y() > startPos.y()) ? 100 : (endPos.y() < startPos.y()) ? -100 : 0;
-
-        qreal nextX = startPos.x() + stepX;
-        qreal nextY = startPos.y() + stepY;
-
-        while (nextX != endPos.x() || nextY != endPos.y()) {
-            if (Board::isPositionOccupied(qRound(nextX / 100), qRound(nextY / 100), scene(), this)) {
-                return false;  // Blocage trouvé, mouvement illégal
+        if (dx == 0 || dy == 0 || dx == dy) {  // Mouvement horizontal, vertical ou diagonal
+            if (pathIsClear(startPos, endPos)) {
+                Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this);
+                if (targetPiece && targetPiece->isWhite != this->isWhite) {
+                    scene()->removeItem(targetPiece);
+                    delete targetPiece;
+                    return true;
+                }
+                return targetPiece == nullptr;
             }
-            nextX += stepX;
-            nextY += stepY;
         }
-        return true;
+        return false;
     }
 
 }
