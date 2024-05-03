@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
+#include "Board.hpp"
 
 namespace model {
 

@@ -3,6 +3,7 @@
 #define BOARD_HPP
 
 #include <QGraphicsItem>
+#include "Piece.hpp"
 
 namespace model {
 
@@ -12,6 +13,7 @@ namespace model {
 
         QRectF boundingRect() const override;
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+        static bool isPositionOccupied(int x, int y, QGraphicsScene* scene, const QGraphicsItem* excludeItem = nullptr);
     };
 
 }

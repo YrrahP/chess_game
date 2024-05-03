@@ -1,6 +1,8 @@
 // Board.cpp
 #include "Board.hpp"
 #include <QPainter>
+#include <QGraphicsScene>
+#include <QDebug>
 
 namespace model {
 
@@ -25,4 +27,28 @@ namespace model {
         }
     }
 
+    bool Board::isPositionOccupied(int x, int y, QGraphicsScene* scene, const QGraphicsItem* excludeItem) {
+        // Convertir les coordonnées en coordonnées de la scène basées sur la taille de chaque case, par exemple 100x100 pixels par case
+        QPointF point(x * 100 + 50, y * 100 + 50); // +50 pour cibler le milieu de la case
+        QList<QGraphicsItem*> items = scene->items(point);
+
+        //for (QGraphicsItem* item : items) {
+        //    if (dynamic_cast<Piece*>(item)) {
+        //        return true;
+        //    }
+        //}
+        //return false;
+
+        qDebug() << "Position: (" << x << "," << y << ") - Items count: " << items.count();
+
+        for (QGraphicsItem* item : items) {
+            qDebug() << "Item type:" << typeid(*item).name(); // Afficher le type de chaque objet
+            if (item != excludeItem && dynamic_cast<Piece*>(item) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
+ 

@@ -29,7 +29,7 @@ namespace model {
 
     void Bishop::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
         QPointF endPos = QPointF(qRound(this->pos().x() / 100) * 100, qRound(this->pos().y() / 100) * 100);
-        if (!isMoveLegal(startPos, endPos)) {
+        if (!isMoveLegal(startPos, endPos) || Board::isPositionOccupied(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this)) {
             setPos(startPos);  // Revenir à la position initiale si le mouvement n'est pas légal
         }
         else {
@@ -41,7 +41,25 @@ namespace model {
     bool Bishop::isMoveLegal(const QPointF& startPos, const QPointF& endPos) {
         int dx = std::abs(endPos.x() - startPos.x());
         int dy = std::abs(endPos.y() - startPos.y());
-        return dx == dy;  // Mouvements légaux uniquement en diagonale
+
+        if (dx != dy) {
+            return false;  // Le mouvement doit être diagonal.
+        }
+
+        int stepX = (endPos.x() > startPos.x()) ? 100 : -100;
+        int stepY = (endPos.y() > startPos.y()) ? 100 : -100;
+
+        qreal nextX = startPos.x() + stepX;
+        qreal nextY = startPos.y() + stepY;
+
+        while (nextX != endPos.x() || nextY != endPos.y()) {
+            if (Board::isPositionOccupied(qRound(nextX / 100), qRound(nextY / 100), scene(), this)) {
+                return false;  // Blocage trouvé, mouvement illégal
+            }
+            nextX += stepX;
+            nextY += stepY;
+        }
+        return true;
     }
 
 }

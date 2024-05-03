@@ -48,7 +48,7 @@ namespace model {
         QGraphicsItem::mouseReleaseEvent(event);
 
         QPointF endPos = QPointF(qRound(this->pos().x() / 100) * 100, qRound(this->pos().y() / 100) * 100);
-        if (!isMoveLegal(startPos, endPos)) {
+        if (!isMoveLegal(startPos, endPos) || Board::isPositionOccupied(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this)) {
             setPos(startPos);
         }
         else {
