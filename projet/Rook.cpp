@@ -57,4 +57,11 @@ namespace model {
         return false;
     }
 
+    bool Rook::isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) {
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
+        return (dx == 0 || dy == 0) && pathIsClear(startPos, endPos);  // Mouvement horizontal ou vertical
+    }
+
+
 }

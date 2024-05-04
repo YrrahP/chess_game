@@ -15,7 +15,8 @@ namespace model {
     protected:
         void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
         void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
-        bool isMoveLegal(const QPointF& startPos, const QPointF& endPos);
+        bool isMoveLegal(const QPointF& startPos, const QPointF& endPos) override;
+        bool isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) override;
 
     private:
         QPointF startPos;

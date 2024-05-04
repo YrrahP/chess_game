@@ -18,8 +18,14 @@ namespace model {
         QRectF boundingRect() const override;
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
+        virtual bool isMoveLegal(const QPointF& startPos, const QPointF& endPos) = 0;
+        virtual bool isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) = 0;
+
         Piece* isPositionOccupieds(int x, int y, QGraphicsScene* scene, const QGraphicsItem* excludeItem = nullptr);
         bool pathIsClear(const QPointF& startPos, const QPointF& endPos);
+
+        Piece* findKing(QGraphicsScene* scene, bool isWhite);
+        bool isKingInCheck(QGraphicsScene* scene, bool isWhiteKing);
         
         bool isWhite;
 

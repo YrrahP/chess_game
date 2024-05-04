@@ -56,4 +56,11 @@ namespace model {
         return false;
     }
 
+    bool Bishop::isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) {
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
+        return (dx == dy) && pathIsClear(startPos, endPos);  // Mouvement uniquement diagonal
+    }
+
+
 }

@@ -70,4 +70,31 @@ namespace model {
         return true;
     }
 
+    Piece* Piece::findKing(QGraphicsScene* scene, bool isWhite) {
+        QList<QGraphicsItem*> items = scene->items();
+        for (QGraphicsItem* item : items) {
+            Piece* piece = dynamic_cast<Piece*>(item);
+            if (piece && piece->type == Type::King && piece->isWhite == isWhite) {
+                return piece;
+            }
+        }
+        return nullptr;
+    }
+
+    bool Piece::isKingInCheck(QGraphicsScene* scene, bool isWhiteKing) {
+        Piece* king = findKing(scene, isWhiteKing);
+        if (!king) return false;
+
+        QList<QGraphicsItem*> items = scene->items();
+        for (QGraphicsItem* item : items) {
+            Piece* piece = dynamic_cast<Piece*>(item);
+            if (piece && piece->isWhite != isWhiteKing) {
+                if (piece->isMoveLegalForCheck(piece->pos(), king->pos())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

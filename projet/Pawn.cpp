@@ -75,4 +75,49 @@ namespace model {
         return false;
     }
 
+    bool Pawn::isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) {
+        int dx = endPos.x() - startPos.x();
+        int dy = endPos.y() - startPos.y();
+        if (this->isWhite) {
+            // Avancer d'une case vers le haut
+            if (dx == 0 && dy == -100 && !isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene())) {
+                return true;
+            }
+            // Avancer de deux cases vers le haut sur le premier coup
+            if (this->firstMove && dx == 0 && dy == -200 &&
+                !isPositionOccupieds(qRound(endPos.x() / 100), qRound((endPos.y() + 100) / 100), scene()) &&
+                !isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene())) {
+                return true;
+            }
+            // Capture diagonale
+            if ((dx == 100 || dx == -100) && dy == -100) {
+                Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene());
+                if (targetPiece && targetPiece->isWhite != this->isWhite) {
+                    return true;
+                }
+            }
+        }
+        else {
+            // Avancer d'une case vers le bas
+            if (dx == 0 && dy == 100 && !isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene())) {
+                return true;
+            }
+            // Avancer de deux cases vers le bas sur le premier coup
+            if (this->firstMove && dx == 0 && dy == 200 &&
+                !isPositionOccupieds(qRound(endPos.x() / 100), qRound((endPos.y() - 100) / 100), scene()) &&
+                !isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene())) {
+                return true;
+            }
+            // Capture diagonale
+            if ((dx == 100 || dx == -100) && dy == 100) {
+                Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene());
+                if (targetPiece && targetPiece->isWhite != this->isWhite) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 }

@@ -29,7 +29,10 @@ namespace model {
 
     void Queen::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
         QPointF endPos = QPointF(qRound(this->pos().x() / 100) * 100, qRound(this->pos().y() / 100) * 100);
-        if (!isMoveLegal(startPos, endPos) || Board::isPositionOccupied(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this)) {
+        if (!isMoveLegal(startPos, endPos) ||
+            isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this) ||
+            isKingInCheck(scene(), this->isWhite)) {
+            
             setPos(startPos);  // Revenir à la position initiale si le mouvement n'est pas légal
         }
         else {
@@ -42,7 +45,7 @@ namespace model {
         int dx = std::abs(endPos.x() - startPos.x());
         int dy = std::abs(endPos.y() - startPos.y());
 
-        if (dx == 0 || dy == 0 || dx == dy) {  // Mouvement horizontal, vertical ou diagonal
+        if (dx == 0 || dy == 0 || dx == dy) {
             if (pathIsClear(startPos, endPos)) {
                 Piece* targetPiece = isPositionOccupieds(qRound(endPos.x() / 100), qRound(endPos.y() / 100), scene(), this);
                 if (targetPiece && targetPiece->isWhite != this->isWhite) {
@@ -55,5 +58,12 @@ namespace model {
         }
         return false;
     }
+
+    bool Queen::isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) {
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
+        return (dx == 0 || dy == 0 || dx == dy) && pathIsClear(startPos, endPos);
+    }
+
 
 }

@@ -54,4 +54,11 @@ namespace model {
         return false;
     }
 
+    bool Knight::isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) {
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
+        return (dx == 200 && dy == 100) || (dx == 100 && dy == 200);  // Mouvement en 'L'
+    }
+
+
 }

@@ -71,4 +71,11 @@ namespace model {
         }
         return false;
     }
+
+    bool King::isMoveLegalForCheck(const QPointF& startPos, const QPointF& endPos) {
+        int dx = std::abs(endPos.x() - startPos.x());
+        int dy = std::abs(endPos.y() - startPos.y());
+        return (dx <= 100 && dy <= 100);  // Le roi se déplace d'une seule case dans toutes les directions
+    }
+
 }
