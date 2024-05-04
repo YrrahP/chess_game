@@ -3,6 +3,9 @@
 #define INTERFACE_HPP
 
 #include <QGraphicsScene>
+#include <QPushButton>
+#include <QGraphicsProxyWidget>
+
 #include "Board.hpp"
 
 namespace interface {
@@ -12,6 +15,7 @@ namespace interface {
         Interface(QGraphicsScene* scene);
         void drawBoard();
         void setupPieces();
+        void drawStartButton();
 
     private:
         QGraphicsScene* scene;

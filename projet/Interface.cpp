@@ -16,6 +16,14 @@ namespace interface {
         scene->addItem(board);
     }
 
+    void Interface::drawStartButton() {
+        QPushButton* startButton = new QPushButton("Reset");
+        QGraphicsProxyWidget* proxyWidget = scene->addWidget(startButton);
+        proxyWidget->setPos(1200, 100);
+        startButton->setFixedSize(200, 100);
+        startButton->setStyleSheet("font-size: 24pt; font-weight: bold; color: white; background-color: darkCyan; ");
+    }
+
     void Interface::setupPieces() {
         // White pieces
         model::King* whiteKing = new model::King(true);
