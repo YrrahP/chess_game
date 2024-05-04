@@ -7,6 +7,7 @@
 #include <QGraphicsProxyWidget>
 
 #include "Board.hpp"
+#include "Piece.hpp"
 
 namespace interface {
 
@@ -16,6 +17,7 @@ namespace interface {
         void drawBoard();
         void setupPieces();
         void drawStartButton();
+        void resetGame();
 
     private:
         QGraphicsScene* scene;

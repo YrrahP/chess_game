@@ -22,6 +22,24 @@ namespace interface {
         proxyWidget->setPos(1200, 100);
         startButton->setFixedSize(200, 100);
         startButton->setStyleSheet("font-size: 24pt; font-weight: bold; color: white; background-color: darkCyan; ");
+        QObject::connect(startButton, &QPushButton::clicked, [&]() {
+            resetGame();  // Appelle la méthode de réinitialisation lorsque le bouton est cliqué
+            });
+    }
+
+    void Interface::resetGame() {
+        // Supprime toutes les pièces actuelles de la scène
+        foreach(QGraphicsItem * item, scene->items()) {
+            model::Piece* piece = dynamic_cast<model::Piece*>(item);
+            if (piece) {
+                scene->removeItem(piece);
+                delete piece;
+            }
+        }
+
+        // Redessine le plateau et replace les pièces à leur position initiale
+        drawBoard();
+        setupPieces();
     }
 
     void Interface::setupPieces() {
